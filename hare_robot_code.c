@@ -9,14 +9,23 @@ Variables store data
 In C variables need to be given a specific data type (integers, floats(numbers with decimals), etc_
 formate to define variable: [datatype] [name] = [value];<--You need a semicolon after every line in C
 */
- float wheel_diam = 5.155;
- float wheel_circum_feet = (wheel_diam * 3.14159265358979323846) / 12.0;
- float gear_ratio = 3.0 / 2.0;
- float total_revs = 30.0 / wheel_circum_feet; // Total needed revolutions
- float rpm = 100.0 * gear_ratio; // Revolutions per minute multiplied by gear ratio to get the true RPM
- float rps = rpm * 60.0; // Revolutions per second
- float total_secs = (rps / total_revs); // Total runtime of the motors to move the robot 30 ft one way in Seconds
- float total_mil = total_secs * 1000.0; // Total runtime of the motors to move the robot 30 ft one way in Milliseconds
+
+// Physical Constants
+float PI = 3.14159265358979323846;
+
+// User Defined Vars
+float default_rpm = 100.0;
+float gear_ratio = 1.5;
+float wheel_diam = 5.155;
+float manual_offset_seconds = 0; // negative for less seconds
+
+// Dependent Vars
+float wheel_circum_feet = (wheel_diam * PI) / 12.0;
+float total_revs = 30.0 / wheel_circum_feet; // Total needed revolutions
+float rpm = default_rpm * gear_ratio; // Revolutions per minute multiplied by gear ratio to get the true RPM
+float rps = rpm * 60.0; // Revolutions per second
+float total_secs = (rps / total_revs) + manual_offset_seconds; // Total runtime of the motors to move the robot 30 ft one way in Seconds
+float total_mil = total_secs * 1000.0; // Total runtime of the motors to move the robot 30 ft one way in Milliseconds
 
 // task main(){} is where the code you want to run goes
 task main()
